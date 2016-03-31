@@ -1,4 +1,4 @@
-package com.bobomee.android.autoscrollloopviewpager;
+package com.bobomee.android.autoscrollloopviewpager.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

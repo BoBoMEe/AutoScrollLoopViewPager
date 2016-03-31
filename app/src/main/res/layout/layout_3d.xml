@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/vp_container"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <com.bobomee.android.scrollloopviewpager.autoscrollviewpager.AutoScrollViewPager
+        android:id="@+id/picslooper3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:clipChildren="false" />
+
+    <com.bobomee.android.drawableindicator.widget.DrawableIndicator
+        android:id="@+id/pageIndexor3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:indicator_height="15dp"
+        app:indicator_margin="15dp"
+        app:indicator_select_src="@drawable/select_drawable"
+        app:indicator_unselect_src="@drawable/unselect_drawable"
+        app:indicator_width="15dp" />
+</RelativeLayout>

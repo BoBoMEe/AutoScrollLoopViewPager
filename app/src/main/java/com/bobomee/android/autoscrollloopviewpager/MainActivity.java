@@ -1,11 +1,17 @@
 package com.bobomee.android.autoscrollloopviewpager;
 
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.bobomee.android.autoscrollloopviewpager.adapter.FragmentStateAdapter;
+import com.bobomee.android.autoscrollloopviewpager.transformer.RotateTransformer;
 import com.bobomee.android.drawableindicator.widget.BaseIndicator;
 import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.AutoScrollViewPager;
 
@@ -21,6 +27,30 @@ public class MainActivity extends AppCompatActivity {
 
         right();
         left();
+        vp3d();
+    }
+
+    private void vp3d() {
+        PagerAdapter adapter;
+        final AutoScrollViewPager viewPager = (AutoScrollViewPager) findViewById(R.id.picslooper3);
+        viewPager.setAdapter(adapter = new FragmentStateAdapter(getSupportFragmentManager()));
+        viewPager.setDirection(AutoScrollViewPager.LEFT);
+        viewPager.setOffscreenPageLimit(adapter.getCount());
+        viewPager.setPageTransformer(true, new RotateTransformer());
+
+        BaseIndicator pageIndex = (BaseIndicator) findViewById(R.id.pageIndexor3);
+        pageIndex.setViewPager(viewPager);
+
+        viewPager.startAutoScroll();
+
+        RelativeLayout vpContainer = (RelativeLayout) findViewById(R.id.vp_container);
+        vpContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return viewPager.dispatchTouchEvent(event);
+            }
+        });
+
     }
 
     private void left() {
