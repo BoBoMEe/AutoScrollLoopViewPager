@@ -4,7 +4,7 @@
 
 Android auto scroll viewpager or viewpager in viewpager
 
-1. Trinea/[AutoScrollViewPager](https://github.com/Trinea/android-auto-scroll-view-pager)
+####1.Trinea/[AutoScrollViewPager](https://github.com/Trinea/android-auto-scroll-view-pager)
 
 - ViewPager which can auto scroll, cycle.
 
@@ -12,24 +12,36 @@ Android auto scroll viewpager or viewpager in viewpager
 
 ![android-auto-scroll-view-pager](http://farm3.staticflickr.com/2843/12805132475_e595664a81_o.gif)
 
-2. yanzm/[LoopViewPager](https://github.com/yanzm/LoopViewPager)
 
-An android ViewPager extension allowing infinite scrolling.
+####2.imbryk/[LoopingViewPager](https://github.com/imbryk/LoopingViewPager)
 
-we can get the real position:
-
-`int  position = (CONTENT.length + position%CONTENT.length)%CONTENT.length; `
-
-The only thing you need to know that the position is not real position.
-
-For example, is the data size if 4, and the page limit is 1, and the four pa . * 
-at first, the index [-1, 0, 1] page will create * after fliping left 3 pages, the index [2, 3, 4] page will create. * real postion should be mapping `realPosition = (count + position%count) % count`, so index -1 will create the fourth page, and index 4 will create first page.
+- The original adapter creates 4 items: [0,1,2,3]
+- The modified adapter will have to create 6 items [0,1,2,3,4,5]
+- with mapping realPosition=(position-1)%count
+[0->3, 1->0, 2->1, 3->2, 4->3, 5->0]
 
 
 ## ScreenShot
 
 ![AutoScrollLoopViewPager](screenshot/shot.gif "AutoScrollLoopViewPager")
 
+## Include
+- `maven`
+
+``` xml
+<dependency>
+  <groupId>com.bobomee.android</groupId>
+  <artifactId>scrollloopviewpager</artifactId>
+  <version>1.3</version>
+  <type>aar</type>
+</dependency>
+```
+
+- `gradle`
+
+``` java
+    compile 'com.bobomee.android:scrollloopviewpager:1.3'
+```
 
 ## Usage
 
@@ -56,7 +68,7 @@ replace
 - `stopAutoScroll()` stop auto scroll.
 
 See:
-[BannerViewActivity.java](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/app/src/main/java/com/bobomee/android/autoscrollloopviewpager/MainActivity.java)
+[MainActivity.java](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/app/src/main/java/com/bobomee/android/autoscrollloopviewpager_master/MainActivity.java)
 
 
 ## Setting
@@ -65,16 +77,10 @@ See:
 - `setDirection(int)` set auto scroll direction, default is `RIGHT`.
 - `setScrollDurationFactor(double)` set the factor by which the duration of sliding animation will change.
 - `setStopScrollWhenTouch(boolean)` set whether stop auto scroll when touching, default is true.
-- You may need [ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) to implement indicator. 
+- You may need [JakeWharton/ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) to implement indicator. 
 - Also you can see [DrawableIndicator](https://github.com/BoBoMEe/DrawableIndicator)
 
 ## Thanks
 
 *   [imbryk/LoopingViewPager](https://github.com/imbryk/LoopingViewPager)
 *   [Trinea/android-auto-scroll-view-pager](https://github.com/Trinea/android-auto-scroll-view-pager)
-
-
-
-
-
-

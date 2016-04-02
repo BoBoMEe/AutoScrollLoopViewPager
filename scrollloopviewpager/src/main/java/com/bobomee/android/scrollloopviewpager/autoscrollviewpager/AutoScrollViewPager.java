@@ -67,10 +67,6 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
      */
     private int slideBorderMode = SLIDE_BORDER_MODE_NONE;
     /**
-     * whether animating when auto scroll at the last or first item *
-     */
-    private boolean isBorderAnimation = true;
-    /**
      * scroll factor for auto scroll animation, default is 1.0 *
      */
     private int autoScrollFactor = 450;
@@ -319,24 +315,6 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
      */
     public void setSlideBorderMode(int slideBorderMode) {
         this.slideBorderMode = slideBorderMode;
-    }
-
-    /**
-     * whether animating when auto scroll at the last or first item, default is true
-     *
-     * @return
-     */
-    public boolean isBorderAnimation() {
-        return isBorderAnimation;
-    }
-
-    /**
-     * set whether animating when auto scroll at the last or first item, default is true
-     *
-     * @param isBorderAnimation
-     */
-    public void setBorderAnimation(boolean isBorderAnimation) {
-        this.isBorderAnimation = isBorderAnimation;
     }
 
 }

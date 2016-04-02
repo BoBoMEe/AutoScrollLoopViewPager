@@ -91,7 +91,6 @@ public class LoopViewPager extends ViewPager {
         }
     }
 
-
     @Override
     public void setAdapter(PagerAdapter adapter) {
         mAdapter = new LoopPagerAdapterWrapper(adapter);

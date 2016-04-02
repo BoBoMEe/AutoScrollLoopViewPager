@@ -36,7 +36,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
 	private SparseArray<ToDestroy> mToDestroy = new SparseArray<ToDestroy>();
 
-    private static final boolean DEFAULT_BOUNDARY_CASHING = false;
+    private static final boolean DEFAULT_BOUNDARY_CASHING = true;
     private static final boolean DEFAULT_BOUNDARY_LOOPING = true;
 
     private boolean mBoundaryCaching = DEFAULT_BOUNDARY_CASHING;
@@ -45,7 +45,6 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 	void setBoundaryCaching(boolean flag) {
 		mBoundaryCaching = flag;
 	}
-
 
     void setBoundaryLooping(boolean flag) {
         mBoundaryLooping = flag;
