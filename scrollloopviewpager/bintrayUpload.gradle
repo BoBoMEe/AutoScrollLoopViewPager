@@ -24,7 +24,7 @@ def developerName = DEVELOPER_NAME
 def developerEmail = DEVELOPER_EMAIL
 
 def bintrayUser = BINTRAY_USER
-def bintrayApikey = BINTRAY_APIKEY
+def bintrayApikey = BINTRAY_KEY
 
 def javadocName = properties.getProperty("javadoc.name")
 

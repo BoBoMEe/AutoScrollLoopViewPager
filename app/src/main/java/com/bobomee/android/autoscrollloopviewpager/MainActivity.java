@@ -1,5 +1,6 @@
 package com.bobomee.android.autoscrollloopviewpager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.bobomee.android.autoscrollloopviewpager.adapter.FragmentStateAdapter;
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         final AutoScrollViewPager viewPager = (AutoScrollViewPager) findViewById(R.id.picslooper3);
         viewPager.setAdapter(adapter = new FragmentStateAdapter(getSupportFragmentManager()));
         viewPager.setDirection(AutoScrollViewPager.LEFT);
-        viewPager.setOffscreenPageLimit(adapter.getCount());
         viewPager.setPageTransformer(true, new RotateTransformer());
 
         BaseIndicator pageIndex = (BaseIndicator) findViewById(R.id.pageIndexor3);
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.startAutoScroll();
 
+        //设置幕后item的缓存数目
+        viewPager.setOffscreenPageLimit(adapter.getCount());
+
+        //设置页与页之间的间距
+        int margin = ((ViewGroup.MarginLayoutParams) viewPager.getLayoutParams()).leftMargin;
+        viewPager.setPageMargin(-(px2dip(this, margin)) / 2);
+
+        //将父类的touch事件分发至viewPgaer，否则只能滑动中间的一个view对象
         RelativeLayout vpContainer = (RelativeLayout) findViewById(R.id.vp_container);
         vpContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -96,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    int px2dip(Context context, int pxValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
 
 }
