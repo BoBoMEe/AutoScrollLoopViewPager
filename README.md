@@ -32,7 +32,7 @@ Android auto scroll viewpager or viewpager in viewpager
 <dependency>
   <groupId>com.bobomee.android</groupId>
   <artifactId>scrollloopviewpager</artifactId>
-  <version>1.3</version>
+  <version>1.5</version>
   <type>aar</type>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Android auto scroll viewpager or viewpager in viewpager
 - `gradle`
 
 ``` java
-    compile 'com.bobomee.android:scrollloopviewpager:1.3'
+    compile 'com.bobomee.android:scrollloopviewpager:1.5'
 ```
 
 ## Usage
