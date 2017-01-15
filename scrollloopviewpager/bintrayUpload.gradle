@@ -9,24 +9,24 @@ if(localPropertiesFile.exists()){
 }
 
 // read properties
-def projectName = properties.getProperty("project.name")
-def projectGroupId = properties.getProperty("project.groupId")
-def projectArtifactId = properties.getProperty("project.artifactId")
+def projectName = "AutoScrollLoopViewPager"
+def projectGroupId = "com.bobomee.android"
+def projectArtifactId = "scrollloopviewpager"
 def projectVersionName = android.defaultConfig.versionName
-def projectPackaging = properties.getProperty("project.packaging")
-def projectSiteUrl = properties.getProperty("project.siteUrl")
-def projectGitUrl = properties.getProperty("project.gitUrl")
-def projectDesc = properties.getProperty("project.desc")
-def projectIssueUrl = properties.getProperty("project.issueUrl")
+def projectPackaging = "aar"
+def projectSiteUrl = "https://github.com/BoBoMEe/AutoScrollLoopViewPager"
+def projectGitUrl = "https://github.com/BoBoMEe/AutoScrollLoopViewPager.git"
+def projectDesc = "A helpful library for Android ViewPager named AutoScrollLoopViewPager"
+def projectIssueUrl = "https://github.com/BoBoMEe/AutoScrollLoopViewPager/issues"
 
-def developerId = DEVELOPER_ID
-def developerName = DEVELOPER_NAME
-def developerEmail = DEVELOPER_EMAIL
+def developerId = "BoBoMEe"
+def developerName = "bobomee"
+def developerEmail = "wbwjx115@gmail.com"
 
-def bintrayUser = BINTRAY_USER
-def bintrayApikey = BINTRAY_KEY
+def bintrayUser = "bobomee"
+def bintrayApikey = "a8bea95a15202a6f8580bb4dc47e3d78f5cc0928"
 
-def javadocName = properties.getProperty("javadoc.name")
+def javadocName = "AutoScrollLoopViewPager"
 
 group = projectGroupId
 

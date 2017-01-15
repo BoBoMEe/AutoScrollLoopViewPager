@@ -9,9 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
-
 import com.bobomee.android.scrollloopviewpager.loopingviewpager.LoopViewPager;
-
 import java.lang.reflect.Field;
 
 /**
@@ -33,7 +31,9 @@ import java.lang.reflect.Field;
  */
 public class AutoScrollViewPager extends LoopViewPager implements Handler.Callback {
 
-    public static final int DEFAULT_INTERVAL = 1500;
+    private static final String TAG = "AutoScrollViewPager";
+
+    private static final int DEFAULT_INTERVAL = 1500;
 
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
@@ -49,7 +49,7 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
     /**
      * the message.what for scroll
      */
-    public static final int SCROLL_WHAT = 0;
+    private static final int SCROLL_WHAT = 0;
     /**
      * auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL} *
      */
@@ -118,7 +118,7 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
     /**
      * stop auto scroll
      */
-    public void stopAutoScroll() {
+    private void stopAutoScroll() {
         isAutoScroll = false;
         handler.removeMessages(SCROLL_WHAT);
     }
@@ -163,9 +163,9 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
     /**
      * scroll only once
      */
-    public void scrollOnce() {
+    private void scrollOnce() {
         PagerAdapter adapter = getAdapter();
-        if (adapter == null) return;
+        if (adapter == null || adapter.getCount() < 1) return;
         int currentItem = getCurrentItem();
         int nextItem = (direction == LEFT) ? --currentItem : ++currentItem;
         setCurrentItem(nextItem, true);
@@ -183,7 +183,7 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
         PagerAdapter adapter = getAdapter();
-        if (adapter == null)
+        if (adapter == null || adapter.getCount() < 1)
             return super.dispatchTouchEvent(ev);
 
         int action = MotionEventCompat.getActionMasked(ev);
@@ -204,28 +204,30 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
                 startAutoScroll();
             }
         }
+        int currentItem = getCurrentItem();
+        int pageCount = adapter.getCount();
+        /**
+         * current index is first one and slide to right or current index is last one and slide to left.<br/>
+         * if slide border mode is to parent, then requestDisallowInterceptTouchEvent false.<br/>
+         * else scroll to last one when current item is first one, scroll to first one when current item is last
+         * one.
+         */
 
-        if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT) {
-            int currentItem = getCurrentItem();
-            int pageCount = adapter.getCount();
-            /**
-             * current index is first one and slide to right or current index is last one and slide to left.<br/>
-             * if slide border mode is to parent, then requestDisallowInterceptTouchEvent false.<br/>
-             * else scroll to last one when current item is first one, scroll to first one when current item is last
-             * one.
-             */
-            if ((currentItem == 0 && downX <= touchX) || (currentItem == pageCount - 1 && downX >= touchX)) {
+        float absX = Math.abs(touchX - downX);
+        float absY = Math.abs(touchY - downY);
+
+        if (absX > absY) {
+            boolean isBorder =
+                (currentItem == 0 && downX <= touchX) || (currentItem == pageCount - 1
+                    && downX >= touchX);
+            if (isBorder && slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT) {
+                getParent().requestDisallowInterceptTouchEvent(false);
+            } else {
                 getParent().requestDisallowInterceptTouchEvent(true);
             }
-
-        }
-
-        if (Math.abs(downX - touchX) > Math.abs(downY - touchY)) {
-            getParent().requestDisallowInterceptTouchEvent(true);
         } else {
             getParent().requestDisallowInterceptTouchEvent(false);
         }
-
         return super.dispatchTouchEvent(ev);
     }
 
@@ -289,9 +291,9 @@ public class AutoScrollViewPager extends LoopViewPager implements Handler.Callba
     }
 
     /**
-     * set whether stop auto scroll when touching, default is true
+     * set whether stop auto scroll when touching
      *
-     * @param stopScrollWhenTouch
+     * @param stopScrollWhenTouch default is true
      */
     public void setStopScrollWhenTouch(boolean stopScrollWhenTouch) {
         this.stopScrollWhenTouch = stopScrollWhenTouch;

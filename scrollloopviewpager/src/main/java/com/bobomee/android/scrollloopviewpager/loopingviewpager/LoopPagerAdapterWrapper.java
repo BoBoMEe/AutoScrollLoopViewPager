@@ -30,11 +30,11 @@ import android.view.ViewGroup;
  *
  * This class shouldn't be used directly
  */
-public class LoopPagerAdapterWrapper extends PagerAdapter {
+class LoopPagerAdapterWrapper extends PagerAdapter {
 
-	private PagerAdapter mAdapter;
+	private final PagerAdapter mAdapter;
 
-	private SparseArray<ToDestroy> mToDestroy = new SparseArray<ToDestroy>();
+	private SparseArray<ToDestroy> mToDestroy = new SparseArray<>();
 
     private static final boolean DEFAULT_BOUNDARY_CASHING = true;
     private static final boolean DEFAULT_BOUNDARY_LOOPING = true;
@@ -56,7 +56,7 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 
 	@Override
 	public void notifyDataSetChanged() {
-		mToDestroy = new SparseArray<ToDestroy>();
+		mToDestroy = new SparseArray<>();
 		super.notifyDataSetChanged();
 	}
 
@@ -172,9 +172,9 @@ public class LoopPagerAdapterWrapper extends PagerAdapter {
 	 * Container class for caching the boundary views
 	 */
 	static class ToDestroy {
-		ViewGroup container;
-		int position;
-		Object object;
+		final ViewGroup container;
+		final int position;
+		final Object object;
 
 		public ToDestroy(ViewGroup container, int position, Object object) {
 			this.container = container;

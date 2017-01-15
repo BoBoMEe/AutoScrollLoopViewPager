@@ -5,12 +5,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 /**
- * Created by bobomee on 16/3/31.
+ * Created on 16/3/31.上午9:55.
+ * @author bobomee.
  */
 public class RotateTransformer implements ViewPager.PageTransformer {
 
-    public static final float MAX_SCALE = 1.2f;
-    public static final float MIN_SCALE = 0.6f;
+    private static final float MAX_SCALE = 1.2f;
+    private static final float MIN_SCALE = 0.6f;
 
     @Override
     public void transformPage(View page, float position) {

@@ -1,4 +1,20 @@
-package com.bobomee.android.autoscrollloopviewpager.adapter;
+/*
+ * Copyright (C) 2017.  BoBoMEe(wbwjx115@gmail.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+package com.bobomee.android.autoscrollloopviewpager.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +29,12 @@ import com.bobomee.android.autoscrollloopviewpager.R;
 import java.util.Random;
 
 /**
- * Created by bobomee on 16/3/29.
+ * Created on 16/3/29.下午2:58.
+ * @author bobomee.
  */
 public class SimpleFragment extends Fragment {
 
-    int i = 0;
+    private int i = 0;
 
     public static SimpleFragment newInstance(int i) {
         SimpleFragment fragment = new SimpleFragment();
@@ -45,7 +62,7 @@ public class SimpleFragment extends Fragment {
 
         Random random = new Random();
         view.setBackgroundColor(0xff00ff00 | random.nextInt(0x00ff00ff));
-        textView.setText(i + "");
+        textView.setText(String.valueOf(i));
 
         return view;
 

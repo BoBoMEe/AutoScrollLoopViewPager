@@ -57,8 +57,8 @@ public class LoopViewPager extends ViewPager {
     /**
      * helper function which may be used when implementing FragmentPagerAdapter
      *
-     * @param position
-     * @param count
+     * @param position item positiion
+     * @param count items count
      * @return (position-1)%count
      */
     public static int toRealPosition(int position, int count) {
@@ -75,7 +75,7 @@ public class LoopViewPager extends ViewPager {
      * If set to true, the boundary views (i.e. first and last) will never be
      * destroyed This may help to prevent "blinking" of some views
      *
-     * @param flag
+     * @param flag default is false
      */
     public void setBoundaryCaching(boolean flag) {
         mBoundaryCaching = flag;
@@ -102,7 +102,7 @@ public class LoopViewPager extends ViewPager {
 
     @Override
     public PagerAdapter getAdapter() {
-        return mAdapter != null ? mAdapter.getRealAdapter() : mAdapter;
+        return mAdapter != null ? mAdapter.getRealAdapter() : null;
     }
 
     @Override
@@ -166,7 +166,7 @@ public class LoopViewPager extends ViewPager {
         super.addOnPageChangeListener(onPageChangeListener);
     }
 
-    private OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
+    private final OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
         private float mPreviousOffset = -1;
         private float mPreviousPosition = -1;
 

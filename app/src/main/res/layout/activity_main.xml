@@ -19,40 +19,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
+        <include
+            layout="@layout/layout_vp_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            />
 
-            <include
-                layout="@layout/layout1"
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-
-            <include
-                layout="@layout/layout2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-
-            <include
-                layout="@layout/layout_3d"
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 
 </LinearLayout>
