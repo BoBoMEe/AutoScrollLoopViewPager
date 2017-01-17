@@ -1,19 +1,14 @@
-[![Android Gems](http://www.android-gems.com/badge/BoBoMEe/AutoScrollLoopViewPager.svg?branch=master)](http://www.android-gems.com/lib/BoBoMEe/AutoScrollLoopViewPager)
-
 # ScrollLoopViewPager
 
-Android auto scroll viewpager or viewpager in viewpager
+Android auto scroll viewpager
 
-####1.Trinea/[AutoScrollViewPager](https://github.com/Trinea/android-auto-scroll-view-pager)
+#### 1.Trinea/[AutoScrollViewPager](https://github.com/Trinea/android-auto-scroll-view-pager)
 
 - ViewPager which can auto scroll, cycle.
 
 - ViewPager which can be slided normal in parent ViewPager.
 
-![android-auto-scroll-view-pager](http://farm3.staticflickr.com/2843/12805132475_e595664a81_o.gif)
-
-
-####2.imbryk/[LoopingViewPager](https://github.com/imbryk/LoopingViewPager)
+#### 2.imbryk/[LoopingViewPager](https://github.com/imbryk/LoopingViewPager)
 
 - The original adapter creates 4 items: [0,1,2,3]
 - The modified adapter will have to create 6 items [0,1,2,3,4,5]
@@ -32,7 +27,7 @@ Android auto scroll viewpager or viewpager in viewpager
 <dependency>
   <groupId>com.bobomee.android</groupId>
   <artifactId>scrollloopviewpager</artifactId>
-  <version>1.5</version>
+  <version>1.8</version>
   <type>aar</type>
 </dependency>
 ```
@@ -40,7 +35,7 @@ Android auto scroll viewpager or viewpager in viewpager
 - `gradle`
 
 ``` java
-    compile 'com.bobomee.android:scrollloopviewpager:1.5'
+    compile 'com.bobomee.android:scrollloopviewpager:1.8'
 ```
 
 ## Usage

@@ -35,15 +35,15 @@ import com.bobomee.android.drawableindicator.widget.BaseIndicator;
 
 public final class ViewParser {
 
-  private static InfiniteBanner scrollVp(View _view, int scrollId) {
-    InfiniteBanner viewPager = (InfiniteBanner) _view.findViewById(scrollId);
+  private static ViewPager scrollVp(View _view, int scrollId) {
+    ViewPager viewPager = ViewFindUtils.find(_view, scrollId);
     viewPager.setFocusable(true);
 
     return viewPager;
   }
 
   private static BaseIndicator indicatorVp(View _view, int indicatorId, ViewPager viewPager) {
-    BaseIndicator pageIndex = (BaseIndicator) _view.findViewById(indicatorId);
+    BaseIndicator pageIndex = ViewFindUtils.find(_view, indicatorId);
     pageIndex.setViewPager(viewPager);
 
     return pageIndex;
@@ -58,15 +58,20 @@ public final class ViewParser {
 
   public static void scrollRightVp(FragmentManager _fragmentManager, View view, int scrollId,
       int indicatorId) {
-    InfiniteBanner viewPager = scrollVp(view, scrollId);
+    ViewPager viewPager = scrollVp(view, scrollId);
     FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
     BaseIndicator indicator = indicatorVp(view, indicatorId, viewPager);
+  }
+
+  public static void scrollRightVp(FragmentManager _fragmentManager, View view, int scrollId) {
+    ViewPager viewPager = scrollVp(view, scrollId);
+    FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
   }
 
   public static void scroll3D(FragmentManager _fragmentManager, View view, int scrollId,
       int indicatorId, int container) {
 
-    final InfiniteBanner viewPager = scrollVp(view, scrollId);
+    final ViewPager viewPager = scrollVp(view, scrollId);
     FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
     BaseIndicator indicator = indicatorVp(view, indicatorId, viewPager);
 
@@ -80,7 +85,7 @@ public final class ViewParser {
     viewPager.setPageMargin(-(px2dip(view.getContext(), margin)) / 2);
 
     //将父类的touch事件分发至viewPgaer，否则只能滑动中间的一个view对象
-    RelativeLayout vpContainer = (RelativeLayout) view.findViewById(container);
+    RelativeLayout vpContainer = ViewFindUtils.find(view, container);
     vpContainer.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View v, MotionEvent event) {
         return viewPager.dispatchTouchEvent(event);

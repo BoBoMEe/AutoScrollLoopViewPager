@@ -54,7 +54,6 @@ public class FiniteBanner extends ViewPager {
         BannerConfig lConfing = mBannerScroll.getConfing();
         if (mBannerScroll.isFirst() || mBannerScroll.isLast()) {
           lConfing.toggleDirection();
-          mBannerScroll.startAutoScroll();
         }
       }
     });

@@ -21,12 +21,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bobomee.android.autoscrollloopviewpager.R;
-import com.bobomee.android.autoscrollloopviewpager.view.FiniteBanner;
+import com.bobomee.android.autoscrollloopviewpager.view.ViewFindUtils;
 import com.bobomee.android.autoscrollloopviewpager.view.ViewParser;
+import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerConfig;
+import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerScroll;
 
 /**
  * Created on 2017/1/14.下午4:00.
@@ -85,14 +89,50 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
       ViewParser.scrollRightVp(childFragmentManager, view, R.id.picslooper1, R.id.pageIndexor1);
       ViewParser.scroll3D(childFragmentManager, view, R.id.picslooper3, R.id.pageIndexor3,
           R.id.vp_container);
+      ViewParser.scrollRightVp(childFragmentManager, view, R.id.banner);
 
-      initBanner(view);
+      initViewPager(view);
+      initViewPager1(view);
     }
 
-    private void initBanner(View pView) {
-      FiniteBanner lBanner = (FiniteBanner) pView.findViewById(R.id.banner);
+    private void initViewPager1(View pView) {
+      ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager1);
+      lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      lBanner.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+      BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
+          .autoScrollFactor(0.8f)
+          .swipeScrollFactor(1.2f)
+          .direction(BannerConfig.LEFT)
+          .interval(800);
+
+      final BannerScroll lBannerScroll = new BannerScroll(lBannerConfig);
+      lBannerScroll.viewPager(lViewPager);
+
+      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+        @Override public boolean onTouch(View v, MotionEvent event) {
+          lBannerScroll.dispatchTouchEvent(event);
+          return false;
+        }
+      });
+
+      lBannerScroll.startAutoScroll();
+    }
+
+    private void initViewPager(View pView) {
+      ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
+      lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+
+      final BannerScroll lBannerScroll = new BannerScroll(getActivity());
+      lBannerScroll.viewPager(lViewPager);
+
+      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+        @Override public boolean onTouch(View v, MotionEvent event) {
+          lBannerScroll.dispatchTouchEvent(event);
+          return false;
+        }
+      });
+
+      lBannerScroll.startAutoScroll();
     }
   }
 }

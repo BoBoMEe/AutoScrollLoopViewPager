@@ -102,27 +102,27 @@ public class BannerConfig {
   }
 
   /**
-   * scroll factor for auto scroll animation, default is 450
+   * scroll factor for auto scroll animation, default is 1.0
    */
-  private int autoScrollFactor = 450;
+  private float autoScrollFactor = 1.0f;
 
   /**
    * set the factor by which the duration of sliding animation will change while auto scrolling
    */
-  public BannerConfig autoScrollFactor(int autoScrollFactor) {
+  public BannerConfig autoScrollFactor(float autoScrollFactor) {
     this.autoScrollFactor = autoScrollFactor;
     return this;
   }
 
   /**
-   * scroll factor for swipe scroll animation, default is 450
+   * scroll factor for swipe scroll animation, default is 1.0
    **/
-  private int swipeScrollFactor = 450;
+  private float swipeScrollFactor = 1.0f;
 
   /**
    * set the factor by which the duration of sliding animation will change while swiping
    */
-  public BannerConfig swipeScrollFactor(int swipeScrollFactor) {
+  public BannerConfig swipeScrollFactor(float swipeScrollFactor) {
     this.swipeScrollFactor = swipeScrollFactor;
     return this;
   }
@@ -141,51 +141,27 @@ public class BannerConfig {
     return new BannerConfig(pContext);
   }
 
-  public int getAutoScrollFactor() {
+  public float getAutoScrollFactor() {
     return autoScrollFactor;
-  }
-
-  public void setAutoScrollFactor(int pAutoScrollFactor) {
-    autoScrollFactor = pAutoScrollFactor;
   }
 
   public int getDirection() {
     return direction;
   }
 
-  public void setDirection(int pDirection) {
-    direction = pDirection;
-  }
-
   public long getInterval() {
     return interval;
-  }
-
-  public void setInterval(long pInterval) {
-    interval = pInterval;
   }
 
   public FixedSpeedScroller getScroller() {
     return mScroller;
   }
 
-  public void setScroller(FixedSpeedScroller pScroller) {
-    mScroller = pScroller;
-  }
-
-  public int getSwipeScrollFactor() {
+  public float getSwipeScrollFactor() {
     return swipeScrollFactor;
-  }
-
-  public void setSwipeScrollFactor(int pSwipeScrollFactor) {
-    swipeScrollFactor = pSwipeScrollFactor;
   }
 
   public boolean isStopScrollWhenTouch() {
     return stopScrollWhenTouch;
-  }
-
-  public void setStopScrollWhenTouch(boolean pStopScrollWhenTouch) {
-    stopScrollWhenTouch = pStopScrollWhenTouch;
   }
 }

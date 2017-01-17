@@ -56,6 +56,29 @@
 
       <include
           layout="@layout/finite_banner"/>
+      <View
+          android:layout_width="wrap_content"
+          android:layout_height="25dp"
+          />
+      <android.support.v4.view.ViewPager
+          android:id="@+id/viewpager"
+          android:background="@color/colorAccent"
+          android:padding="5dp"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          />
+
+      <View
+          android:layout_width="wrap_content"
+          android:layout_height="25dp"
+          />
+      <android.support.v4.view.ViewPager
+          android:id="@+id/viewpager1"
+          android:background="@color/colorAccent"
+          android:padding="5dp"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          />
 
     </LinearLayout>
   </ScrollView>
