@@ -96,13 +96,12 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     private void initViewPager1(View pView) {
-      ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager1);
+      final ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager1);
       lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
+      final BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
           .autoScrollFactor(0.8f)
           .swipeScrollFactor(1.2f)
-          .direction(BannerConfig.LEFT)
           .interval(800);
 
       final BannerScroll lBannerScroll = new BannerScroll(lBannerConfig);
@@ -112,6 +111,15 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
         @Override public boolean onTouch(View v, MotionEvent event) {
           lBannerScroll.dispatchTouchEvent(event);
           return false;
+        }
+      });
+
+      lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        @Override public void onPageSelected(int position) {
+          super.onPageSelected(position);
+          if (lBannerScroll.isFirst() || lBannerScroll.isLast()) {
+            lBannerConfig.toggleDirection();
+          }
         }
       });
 
@@ -129,6 +137,16 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
         @Override public boolean onTouch(View v, MotionEvent event) {
           lBannerScroll.dispatchTouchEvent(event);
           return false;
+        }
+      });
+
+      lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        @Override public void onPageSelected(int position) {
+          super.onPageSelected(position);
+          if (lBannerScroll.isFirst() || lBannerScroll.isLast()) {
+            BannerConfig lBannerConfig = lBannerScroll.getConfing();
+            lBannerConfig.toggleDirection();
+          }
         }
       });
 

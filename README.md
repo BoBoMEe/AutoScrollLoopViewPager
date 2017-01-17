@@ -2,28 +2,15 @@
 
 Android auto scroll viewpager
 
-#### 1.Trinea/[AutoScrollViewPager](https://github.com/Trinea/android-auto-scroll-view-pager)
-
-- ViewPager which can auto scroll, cycle.
-
-- ViewPager which can be slided normal in parent ViewPager.
-
-#### 2.imbryk/[LoopingViewPager](https://github.com/imbryk/LoopingViewPager)
-
-- The original adapter creates 4 items: [0,1,2,3]
-- The modified adapter will have to create 6 items [0,1,2,3,4,5]
-- with mapping realPosition=(position-1)%count
-[0->3, 1->0, 2->1, 3->2, 4->3, 5->0]
-
 
 ## ScreenShot
 
 ![AutoScrollLoopViewPager](screenshot/shot.gif "AutoScrollLoopViewPager")
 
-## Include
+## Usage
 - `maven`
 
-``` xml
+```xml
 <dependency>
   <groupId>com.bobomee.android</groupId>
   <artifactId>scrollloopviewpager</artifactId>
@@ -34,44 +21,119 @@ Android auto scroll viewpager
 
 - `gradle`
 
-``` java
-    compile 'com.bobomee.android:scrollloopviewpager:1.8'
+```groovy
+compile 'com.bobomee.android:scrollloopviewpager:1.8'
 ```
 
 ## Usage
 
-- include this library, use
 
-``` xml
-<com.bobomee.android.scrollloopviewpager.autoscrollviewpager.AutoScrollViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+- Simple
+
+```java
+      ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
+      lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+
+      final BannerScroll lBannerScroll = new BannerScroll(getActivity());//use default BannerConfig
+      lBannerScroll.viewPager(lViewPager);//attach viewpager
+
+      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+        @Override public boolean onTouch(View v, MotionEvent event) {
+          lBannerScroll.dispatchTouchEvent(event); // dispatch touchevent
+          return false;
+        }
+      });
+
+      lBannerScroll.startAutoScroll();
 ```
 
-replace
 
-``` xml
-<android.support.v4.view.ViewPager
-	android:id="@+id/vp"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content" />
+-  [BannerConfig.java](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerConfig.java)
+
+```java
+ final BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
+          .autoScrollFactor(0.8f)// scroll factor for auto scroll
+          .swipeScrollFactor(1.2f)// scroll factor for swipe scroll
+          .interval(800);// auto scroll interval
 ```
 
-- `startAutoScroll()` start auto scroll, delay time is `getInterval()`.
-- `startAutoScroll(int)` start auto scroll delayed.
-- `stopAutoScroll()` stop auto scroll.
+- [BannerScroll](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerScroll.java)
 
-See:
-[MainActivity.java](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/app/src/main/java/com/bobomee/android/autoscrollloopviewpager_master/MainActivity.java)
+```java
+final BannerScroll lBannerScroll = new BannerScroll(lBannerConfig);//use custom config
+lBannerScroll.viewPager(lViewPager); // attach viewpager
 
+      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+        @Override public boolean onTouch(View v, MotionEvent event) {
+          lBannerScroll.dispatchTouchEvent(event);// dispatchTouchEvent,stop scroll when touch
+          return false;
+        }
+      });
+```
 
-## Setting
+- Advance
 
-- `setInterval(long)` set auto scroll time in milliseconds, default is `DEFAULT_INTERVAL`.
-- `setDirection(int)` set auto scroll direction, default is `RIGHT`.
-- `setScrollDurationFactor(double)` set the factor by which the duration of sliding animation will change.
-- `setStopScrollWhenTouch(boolean)` set whether stop auto scroll when touching, default is true.
+```java
+// pagechange
+lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        @Override public void onPageSelected(int position) {
+          super.onPageSelected(position);
+          if (lBannerScroll.isFirst() || lBannerScroll.isLast()) {
+            BannerConfig lBannerConfig = lBannerScroll.getConfing();
+            lBannerConfig.toggleDirection();//change scroll direction
+          }
+        }
+      });
+```
+## Extends
+
+However, you can also customize Viewpager
+
+```java
+public class InfiniteBanner extends LoopViewPager {
+
+  private BannerScroll mBannerScroll;
+
+  public InfiniteBanner(Context context) {
+    super(context);
+    init();
+  }
+
+  public InfiniteBanner(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init();
+  }
+
+  private void init() {
+    mBannerScroll = new BannerScroll(getContext());
+    mBannerScroll.viewPager(this);
+    mBannerScroll.startAutoScroll();
+  }
+
+  @Override public boolean dispatchTouchEvent(MotionEvent ev) {
+    mBannerScroll.dispatchTouchEvent(ev);
+    return super.dispatchTouchEvent(ev);
+  }
+
+  @Override protected void onDetachedFromWindow() {
+    mBannerScroll.onDetachedFromWindow();
+    super.onDetachedFromWindow();
+  }
+}
+```
+
+```java
+ ViewPager viewPager = ViewFindUtils.find(view, viewpager);
+ FragmentStateAdapter fragmentStateAdapter = new FragmentStateAdapter(fragmentManager);
+ viewPager.setAdapter(fragmentStateAdapter);
+```
+
+## Config Setting
+
+- `interval(long)` set auto scroll time in milliseconds, default is `DEFAULT_INTERVAL`.
+- `direction(int)` set auto scroll direction, default is `RIGHT`.
+- `autoScrollFactor(double)` set the factor by which the duration of sliding animation will change.
+- `stopScrollWhenTouch(boolean)` set whether stop auto scroll when touching, default is true.
 - You may need [JakeWharton/ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) to implement indicator. 
 - Also you can see [DrawableIndicator](https://github.com/BoBoMEe/DrawableIndicator)
 
