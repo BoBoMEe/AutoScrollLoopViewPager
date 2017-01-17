@@ -48,7 +48,7 @@ compile 'com.bobomee.android:scrollloopviewpager:1.8'
 ```
 
 
--  [BannerConfig.java](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerConfig.java)
+-  [BannerConfig](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerConfig.java)
 
 ```java
  final BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
