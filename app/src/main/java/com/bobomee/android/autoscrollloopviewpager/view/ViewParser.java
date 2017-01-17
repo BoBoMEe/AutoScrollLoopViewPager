@@ -19,7 +19,6 @@ package com.bobomee.android.autoscrollloopviewpager.view;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import android.widget.RelativeLayout;
 import com.bobomee.android.autoscrollloopviewpager.adapter.FragmentStateAdapter;
 import com.bobomee.android.autoscrollloopviewpager.transformer.RotateTransformer;
 import com.bobomee.android.drawableindicator.widget.BaseIndicator;
-import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.AutoScrollViewPager;
 
 /**
  * Created on 2017/1/14.下午3:28.
@@ -37,12 +35,8 @@ import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.AutoScrollVie
 
 public final class ViewParser {
 
-  public static View parseView(LayoutInflater inflater, int layoutResId, ViewGroup root) {
-    return inflater.inflate(layoutResId, root, false);
-  }
-
-  private static AutoScrollViewPager scrollVp(View _view, int scrollId) {
-    AutoScrollViewPager viewPager = (AutoScrollViewPager) _view.findViewById(scrollId);
+  private static InfiniteBanner scrollVp(View _view, int scrollId) {
+    InfiniteBanner viewPager = (InfiniteBanner) _view.findViewById(scrollId);
     viewPager.setFocusable(true);
 
     return viewPager;
@@ -62,37 +56,20 @@ public final class ViewParser {
     return fragmentStateAdapter;
   }
 
-  public static void scrollLeftVp(FragmentManager _fragmentManager, View _view, int scrollId,
-      int indicatorId) {
-
-    AutoScrollViewPager viewPager = scrollVp(_view, scrollId);
-    FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
-    BaseIndicator indicator = indicatorVp(_view, indicatorId, viewPager);
-
-    viewPager.setDirection(AutoScrollViewPager.LEFT);
-
-    viewPager.startAutoScroll();
-  }
-
   public static void scrollRightVp(FragmentManager _fragmentManager, View view, int scrollId,
       int indicatorId) {
-    AutoScrollViewPager viewPager = scrollVp(view, scrollId);
+    InfiniteBanner viewPager = scrollVp(view, scrollId);
     FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
     BaseIndicator indicator = indicatorVp(view, indicatorId, viewPager);
-
-    viewPager.setDirection(AutoScrollViewPager.RIGHT);
-
-    viewPager.startAutoScroll();
   }
 
   public static void scroll3D(FragmentManager _fragmentManager, View view, int scrollId,
       int indicatorId, int container) {
 
-    final AutoScrollViewPager viewPager = scrollVp(view, scrollId);
+    final InfiniteBanner viewPager = scrollVp(view, scrollId);
     FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
     BaseIndicator indicator = indicatorVp(view, indicatorId, viewPager);
 
-    viewPager.setDirection(AutoScrollViewPager.LEFT);
     viewPager.setPageTransformer(true, new RotateTransformer());
 
     //设置幕后item的缓存数目
@@ -110,7 +87,6 @@ public final class ViewParser {
       }
     });
 
-    viewPager.startAutoScroll();
   }
 
   private static int px2dip(Context context, int pxValue) {

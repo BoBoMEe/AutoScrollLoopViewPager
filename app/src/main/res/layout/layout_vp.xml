@@ -44,7 +44,7 @@
           />
 
       <include
-          layout="@layout/layout2"
+          layout="@layout/layout_3d"
           android:layout_width="match_parent"
           android:layout_height="100dp"
           />
@@ -55,10 +55,7 @@
           />
 
       <include
-          layout="@layout/layout_3d"
-          android:layout_width="match_parent"
-          android:layout_height="100dp"
-          />
+          layout="@layout/finite_banner"/>
 
     </LinearLayout>
   </ScrollView>

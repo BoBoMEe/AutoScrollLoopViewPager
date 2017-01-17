@@ -16,10 +16,16 @@
 
 package com.bobomee.android.autoscrollloopviewpager.adapter;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import com.bobomee.android.autoscrollloopviewpager.fragment.RecyclerViewFragment;
-import com.bobomee.android.autoscrollloopviewpager.fragment.ViewPagerFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import com.bobomee.android.autoscrollloopviewpager.R;
+import com.bobomee.android.autoscrollloopviewpager.view.FiniteBanner;
+import com.bobomee.android.autoscrollloopviewpager.view.ViewParser;
 
 /**
  * Created on 2017/1/14.下午4:00.
@@ -46,7 +52,7 @@ public class TabViewPagerAdapter extends FragmentStateAdapter {
 
     switch (position) {
       case 0:
-        fragment = RecyclerViewFragment.newInstance(position);
+        fragment = ViewPagerFragment.newInstance();
         break;
       case 1:
         fragment = ViewPagerFragment.newInstance();
@@ -56,5 +62,37 @@ public class TabViewPagerAdapter extends FragmentStateAdapter {
         break;
     }
     return fragment;
+  }
+
+  public static class ViewPagerFragment extends Fragment {
+
+    public static ViewPagerFragment newInstance() {
+      Bundle args = new Bundle();
+      ViewPagerFragment fragment = new ViewPagerFragment();
+      fragment.setArguments(args);
+      return fragment;
+    }
+
+    @Nullable @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState) {
+      return inflater.inflate(R.layout.layout_vp, container, false);
+    }
+
+    @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+      super.onViewCreated(view, savedInstanceState);
+      FragmentManager childFragmentManager = getChildFragmentManager();
+      ViewParser.scrollRightVp(childFragmentManager, view, R.id.picslooper1, R.id.pageIndexor1);
+      ViewParser.scroll3D(childFragmentManager, view, R.id.picslooper3, R.id.pageIndexor3,
+          R.id.vp_container);
+
+      initBanner(view);
+    }
+
+    private void initBanner(View pView) {
+      FiniteBanner lBanner = (FiniteBanner) pView.findViewById(R.id.banner);
+
+      lBanner.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+    }
   }
 }
