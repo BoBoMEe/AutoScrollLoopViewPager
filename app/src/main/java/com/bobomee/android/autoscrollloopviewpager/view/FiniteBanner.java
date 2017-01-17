@@ -20,6 +20,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerConfig;
 import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerScroll;
 
 /**
@@ -46,10 +47,26 @@ public class FiniteBanner extends ViewPager {
     mBannerScroll = new BannerScroll(getContext());
     mBannerScroll.viewPager(this);
     mBannerScroll.startAutoScroll();
+
+    mBannerScroll.pageChangeListener(new SimpleOnPageChangeListener() {
+      @Override public void onPageSelected(int position) {
+        super.onPageSelected(position);
+        BannerConfig lConfing = mBannerScroll.getConfing();
+        if (mBannerScroll.isFirst() || mBannerScroll.isLast()) {
+          lConfing.toggleDirection();
+          mBannerScroll.startAutoScroll();
+        }
+      }
+    });
   }
 
   @Override public boolean dispatchTouchEvent(MotionEvent ev) {
     mBannerScroll.dispatchTouchEvent(ev);
     return super.dispatchTouchEvent(ev);
+  }
+
+  @Override protected void onDetachedFromWindow() {
+    mBannerScroll.onDetachedFromWindow();
+    super.onDetachedFromWindow();
   }
 }

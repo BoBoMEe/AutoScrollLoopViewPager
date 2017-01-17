@@ -26,6 +26,8 @@ import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created on 2017/1/17.上午11:04.
@@ -44,6 +46,8 @@ public class BannerScroll {
   private Handler mHandler;
   private boolean isAutoScroll = false;
   private boolean isStopByTouch = false;
+  private int mTotalCount = 0;
+  private List<ViewPager.SimpleOnPageChangeListener> mOnPageChangeListeners;
 
   public BannerScroll(Context pContext) {
     this.confing = BannerConfig.sConfig(pContext);
@@ -61,6 +65,68 @@ public class BannerScroll {
     return this;
   }
 
+  private void addSimpleOnPageChangeListener(
+      ViewPager.SimpleOnPageChangeListener pSimpleOnPageChangeListener) {
+    if (null == this.mOnPageChangeListeners) {
+      this.mOnPageChangeListeners = new ArrayList<>();
+    }
+    this.mOnPageChangeListeners.add(pSimpleOnPageChangeListener);
+  }
+
+  private void notifyOnPageScrolled(final int position, float positionOffset,
+      int positionOffsetPixels) {
+    if (mOnPageChangeListeners != null) {
+      for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
+        ViewPager.SimpleOnPageChangeListener listener = mOnPageChangeListeners.get(i);
+        if (listener != null) {
+          listener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
+      }
+    }
+  }
+
+  private void notifyOnPageSelected(int position) {
+    if (mOnPageChangeListeners != null) {
+      for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
+        ViewPager.SimpleOnPageChangeListener listener = mOnPageChangeListeners.get(i);
+        if (listener != null) {
+          listener.onPageSelected(position);
+        }
+      }
+    }
+  }
+
+  private void notifyOnPageScrollStateChanged(int state) {
+    if (mOnPageChangeListeners != null) {
+      for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
+        ViewPager.SimpleOnPageChangeListener listener = mOnPageChangeListeners.get(i);
+        if (listener != null) {
+          listener.onPageScrollStateChanged(state);
+        }
+      }
+    }
+  }
+
+  public BannerScroll pageChangeListener(
+      ViewPager.SimpleOnPageChangeListener pOnPageChangeListener) {
+    addSimpleOnPageChangeListener(pOnPageChangeListener);
+    mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        notifyOnPageScrolled(position, positionOffset, positionOffsetPixels);
+      }
+
+      @Override public void onPageSelected(int position) {
+        notifyOnPageSelected(position);
+      }
+
+      @Override public void onPageScrollStateChanged(int state) {
+        notifyOnPageScrollStateChanged(state);
+      }
+    });
+    return this;
+  }
+
   /**
    * set ViewPager scroller to change animation duration when sliding
    */
@@ -72,7 +138,7 @@ public class BannerScroll {
       FixedSpeedScroller lScroller = confing.getScroller();
       setAuto();
 
-      scrollerField.set(this, lScroller);
+      scrollerField.set(mViewPager, lScroller);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -131,10 +197,11 @@ public class BannerScroll {
    */
   private void scrollOnce() {
     PagerAdapter adapter = mViewPager.getAdapter();
-    if (adapter == null || adapter.getCount() < 1) return;
+    if (adapter == null || (mTotalCount = adapter.getCount()) <= 1) return;
     int currentItem = mViewPager.getCurrentItem();
     int nextItem = (confing.getDirection() == BannerConfig.LEFT) ? --currentItem : ++currentItem;
     mViewPager.setCurrentItem(nextItem, true);
+    if (currentItem == 0 || currentItem == mTotalCount - 1) return;
     sendScrollMessage(confing.getInterval());
   }
 
@@ -153,8 +220,7 @@ public class BannerScroll {
       switch (msg.what) {
         case SCROLL_WHAT:
           BannerScroll lBannerScroll = this.mBannerScrollWeakReference.get();
-          if (lBannerScroll != null&& lBannerScroll.isAutoScroll) {
-            lBannerScroll.setAuto();
+          if (lBannerScroll != null && lBannerScroll.isAutoScroll) {
             lBannerScroll.scrollOnce();
           }
           break;
@@ -185,9 +251,30 @@ public class BannerScroll {
         }
       } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
         if (isStopByTouch && confing.isStopScrollWhenTouch()) {
+          setAuto();
           startAutoScroll();
         }
       }
     }
+  }
+
+  public void onDetachedFromWindow() {
+    stopAutoScroll();
+  }
+
+  public BannerConfig getConfing() {
+    return confing;
+  }
+
+  public boolean isLast() {
+    if (mTotalCount == 0) return true;
+    int lCurrentItem = mViewPager.getCurrentItem();
+    return lCurrentItem == mTotalCount - 1;
+  }
+
+  public boolean isFirst() {
+    if (mTotalCount == 0) return true;
+    int lCurrentItem = mViewPager.getCurrentItem();
+    return lCurrentItem == 0;
   }
 }

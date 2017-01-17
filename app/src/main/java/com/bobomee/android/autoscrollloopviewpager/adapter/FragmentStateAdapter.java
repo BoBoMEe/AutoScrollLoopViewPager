@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import java.util.Random;
  * Created on 2016/3/28.下午2:58.
  * @author bobomee.
  */
-public class FragmentStateAdapter extends FragmentPagerAdapter {
+public class FragmentStateAdapter extends FragmentStatePagerAdapter {
 
     public FragmentStateAdapter(FragmentManager fm) {
         super(fm);
@@ -24,6 +24,7 @@ public class FragmentStateAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
         return SimpleFragment.newInstance(position);
     }
 

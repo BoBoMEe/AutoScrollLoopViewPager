@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,8 @@ import com.bobomee.android.autoscrollloopviewpager.view.ViewParser;
  * @author bobomee.
  */
 
-public class TabViewPagerAdapter extends FragmentStateAdapter {
+public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
+
   public TabViewPagerAdapter(FragmentManager fm) {
     super(fm);
   }
@@ -47,9 +49,7 @@ public class TabViewPagerAdapter extends FragmentStateAdapter {
   }
 
   @Override public Fragment getItem(int position) {
-
     Fragment fragment;
-
     switch (position) {
       case 0:
         fragment = ViewPagerFragment.newInstance();

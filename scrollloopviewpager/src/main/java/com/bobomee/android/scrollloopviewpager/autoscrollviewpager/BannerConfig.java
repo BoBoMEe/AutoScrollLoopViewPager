@@ -72,6 +72,20 @@ public class BannerConfig {
   }
 
   /**
+   * toggle the auto scroll direction
+   *
+   * @return this
+   */
+  public BannerConfig toggleDirection() {
+    if (direction == LEFT) {
+      direction(RIGHT);
+    } else {
+      direction(LEFT);
+    }
+    return this;
+  }
+
+  /**
    * whether stop auto scroll when touching, default is true
    */
   private boolean stopScrollWhenTouch = true;

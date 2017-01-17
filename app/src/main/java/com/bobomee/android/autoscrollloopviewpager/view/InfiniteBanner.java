@@ -52,4 +52,9 @@ public class InfiniteBanner extends LoopViewPager {
     mBannerScroll.dispatchTouchEvent(ev);
     return super.dispatchTouchEvent(ev);
   }
+
+  @Override protected void onDetachedFromWindow() {
+    mBannerScroll.onDetachedFromWindow();
+    super.onDetachedFromWindow();
+  }
 }
