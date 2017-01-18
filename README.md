@@ -7,7 +7,7 @@ Android auto scroll viewpager
 
 ![AutoScrollLoopViewPager](screenshot/shot.gif "AutoScrollLoopViewPager")
 
-## Usage
+## Import
 - `maven`
 
 ```xml
