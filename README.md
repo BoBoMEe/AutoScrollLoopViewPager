@@ -14,7 +14,7 @@ Android auto scroll viewpager
 <dependency>
   <groupId>com.bobomee.android</groupId>
   <artifactId>scrollloopviewpager</artifactId>
-  <version>1.8</version>
+  <version>2.0</version>
   <type>aar</type>
 </dependency>
 ```
@@ -22,7 +22,7 @@ Android auto scroll viewpager
 - `gradle`
 
 ```groovy
-compile 'com.bobomee.android:scrollloopviewpager:1.8'
+compile 'com.bobomee.android:scrollloopviewpager:2.0'
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ compile 'com.bobomee.android:scrollloopviewpager:1.8'
       ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
       lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      final BannerScroll lBannerScroll = new BannerScroll(getActivity());//use default BannerConfig
+      final BannerController lBannerScroll = new BannerScroll(getActivity());//use default BannerConfig
       lBannerScroll.viewPager(lViewPager);//attach viewpager
 
       lViewPager.setOnTouchListener(new View.OnTouchListener() {

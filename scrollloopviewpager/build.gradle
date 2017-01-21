@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode 18
-        versionName "1.8"
+        versionCode 20
+        versionName "2.0"
     }
     buildTypes {
         release {

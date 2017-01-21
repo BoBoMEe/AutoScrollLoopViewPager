@@ -30,7 +30,7 @@ import com.bobomee.android.autoscrollloopviewpager.R;
 import com.bobomee.android.autoscrollloopviewpager.view.ViewFindUtils;
 import com.bobomee.android.autoscrollloopviewpager.view.ViewParser;
 import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerConfig;
-import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerScroll;
+import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerController;
 
 /**
  * Created on 2017/1/14.下午4:00.
@@ -104,12 +104,12 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
           .swipeScrollFactor(1.2f)
           .interval(800);
 
-      final BannerScroll lBannerScroll = new BannerScroll(lBannerConfig);
-      lBannerScroll.viewPager(lViewPager);
+      final BannerController lBannerController = new BannerController(lBannerConfig);
+      lBannerController.viewPager(lViewPager);
 
       lViewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerScroll.dispatchTouchEvent(event);
+          lBannerController.dispatchTouchEvent(event);
           return false;
         }
       });
@@ -117,25 +117,25 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
       lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
-          if (lBannerScroll.isFirst() || lBannerScroll.isLast()) {
+          if (lBannerController.isFirst() || lBannerController.isLast()) {
             lBannerConfig.toggleDirection();
           }
         }
       });
 
-      lBannerScroll.startAutoScroll();
+      lBannerController.startAutoScroll();
     }
 
     private void initViewPager(View pView) {
       ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
       lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      final BannerScroll lBannerScroll = new BannerScroll(getActivity());
-      lBannerScroll.viewPager(lViewPager);
+      final BannerController lBannerController = new BannerController(getActivity());
+      lBannerController.viewPager(lViewPager);
 
       lViewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerScroll.dispatchTouchEvent(event);
+          lBannerController.dispatchTouchEvent(event);
           return false;
         }
       });
@@ -143,14 +143,14 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
       lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
-          if (lBannerScroll.isFirst() || lBannerScroll.isLast()) {
-            BannerConfig lBannerConfig = lBannerScroll.getConfing();
+          if (lBannerController.isFirst() || lBannerController.isLast()) {
+            BannerConfig lBannerConfig = lBannerController.getConfing();
             lBannerConfig.toggleDirection();
           }
         }
       });
 
-      lBannerScroll.startAutoScroll();
+      lBannerController.startAutoScroll();
     }
   }
 }

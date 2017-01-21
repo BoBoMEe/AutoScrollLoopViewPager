@@ -34,7 +34,7 @@ import java.lang.reflect.Field;
  * @author bobomee.
  */
 
-public class BannerScroll {
+public class BannerController {
 
   /**
    * the message.what for scroll
@@ -48,17 +48,17 @@ public class BannerScroll {
   private int mTotalCount = 0;
   private PageChangeListener mPageChangeListener;
 
-  public BannerScroll(Context pContext) {
+  public BannerController(Context pContext) {
     this.confing = BannerConfig.sConfig(pContext);
     mHandler = new MyHandler(Looper.myLooper(), this);
   }
 
-  public BannerScroll(BannerConfig pBannerConfig) {
+  public BannerController(BannerConfig pBannerConfig) {
     this.confing = pBannerConfig;
     mHandler = new MyHandler(Looper.myLooper(), this);
   }
 
-  public BannerScroll viewPager(ViewPager pViewPager) {
+  public BannerController viewPager(ViewPager pViewPager) {
     this.mViewPager = pViewPager;
     setViewPagerScroller();
     return this;
@@ -72,7 +72,7 @@ public class BannerScroll {
     mPageChangeListener.addListener(pSimpleOnPageChangeListener);
   }
 
-  public BannerScroll pageChangeListener(
+  public BannerController pageChangeListener(
       ViewPager.SimpleOnPageChangeListener pOnPageChangeListener) {
     addSimpleOnPageChangeListener(pOnPageChangeListener);
     mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -171,11 +171,11 @@ public class BannerScroll {
 
   private static class MyHandler extends Handler {
 
-    private final WeakReference<BannerScroll> mBannerScrollWeakReference;
+    private final WeakReference<BannerController> mBannerScrollWeakReference;
 
-    public MyHandler(Looper pLooper, BannerScroll pBannerScroll) {
+    public MyHandler(Looper pLooper, BannerController pBannerScroll) {
       super(pLooper);
-      this.mBannerScrollWeakReference = new WeakReference<BannerScroll>(pBannerScroll);
+      this.mBannerScrollWeakReference = new WeakReference<BannerController>(pBannerScroll);
     }
 
     @Override public void handleMessage(Message msg) {
@@ -183,7 +183,7 @@ public class BannerScroll {
 
       switch (msg.what) {
         case SCROLL_WHAT:
-          BannerScroll lBannerScroll = this.mBannerScrollWeakReference.get();
+          BannerController lBannerScroll = this.mBannerScrollWeakReference.get();
           if (lBannerScroll != null && lBannerScroll.isAutoScroll) {
             lBannerScroll.scrollOnce();
           }

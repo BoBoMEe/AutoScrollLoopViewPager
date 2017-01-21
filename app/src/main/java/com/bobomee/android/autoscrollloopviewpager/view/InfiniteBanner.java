@@ -19,7 +19,7 @@ package com.bobomee.android.autoscrollloopviewpager.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerScroll;
+import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerController;
 import com.bobomee.android.scrollloopviewpager.loopingviewpager.LoopViewPager;
 
 /**
@@ -30,7 +30,7 @@ import com.bobomee.android.scrollloopviewpager.loopingviewpager.LoopViewPager;
 
 public class InfiniteBanner extends LoopViewPager {
 
-  private BannerScroll mBannerScroll;
+  private BannerController mBannerController;
 
   public InfiniteBanner(Context context) {
     super(context);
@@ -43,18 +43,18 @@ public class InfiniteBanner extends LoopViewPager {
   }
 
   private void init() {
-    mBannerScroll = new BannerScroll(getContext());
-    mBannerScroll.viewPager(this);
-    mBannerScroll.startAutoScroll();
+    mBannerController = new BannerController(getContext());
+    mBannerController.viewPager(this);
+    mBannerController.startAutoScroll();
   }
 
   @Override public boolean dispatchTouchEvent(MotionEvent ev) {
-    mBannerScroll.dispatchTouchEvent(ev);
+    mBannerController.dispatchTouchEvent(ev);
     return super.dispatchTouchEvent(ev);
   }
 
   @Override protected void onDetachedFromWindow() {
-    mBannerScroll.onDetachedFromWindow();
+    mBannerController.onDetachedFromWindow();
     super.onDetachedFromWindow();
   }
 }

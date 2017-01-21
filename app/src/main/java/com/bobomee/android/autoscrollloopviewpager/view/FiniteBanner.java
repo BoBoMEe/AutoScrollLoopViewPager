@@ -21,7 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerConfig;
-import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerScroll;
+import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerController;
 
 /**
  * Created on 2017/1/17.下午2:56.
@@ -31,7 +31,7 @@ import com.bobomee.android.scrollloopviewpager.autoscrollviewpager.BannerScroll;
 
 public class FiniteBanner extends ViewPager {
 
-  private BannerScroll mBannerScroll;
+  private BannerController mBannerController;
 
   public FiniteBanner(Context context) {
     super(context);
@@ -44,15 +44,15 @@ public class FiniteBanner extends ViewPager {
   }
 
   private void init() {
-    mBannerScroll = new BannerScroll(getContext());
-    mBannerScroll.viewPager(this);
-    mBannerScroll.startAutoScroll();
+    mBannerController = new BannerController(getContext());
+    mBannerController.viewPager(this);
+    mBannerController.startAutoScroll();
 
-    mBannerScroll.pageChangeListener(new SimpleOnPageChangeListener() {
+    mBannerController.pageChangeListener(new SimpleOnPageChangeListener() {
       @Override public void onPageSelected(int position) {
         super.onPageSelected(position);
-        BannerConfig lConfing = mBannerScroll.getConfing();
-        if (mBannerScroll.isFirst() || mBannerScroll.isLast()) {
+        BannerConfig lConfing = mBannerController.getConfing();
+        if (mBannerController.isFirst() || mBannerController.isLast()) {
           lConfing.toggleDirection();
         }
       }
@@ -60,12 +60,12 @@ public class FiniteBanner extends ViewPager {
   }
 
   @Override public boolean dispatchTouchEvent(MotionEvent ev) {
-    mBannerScroll.dispatchTouchEvent(ev);
+    mBannerController.dispatchTouchEvent(ev);
     return super.dispatchTouchEvent(ev);
   }
 
   @Override protected void onDetachedFromWindow() {
-    mBannerScroll.onDetachedFromWindow();
+    mBannerController.onDetachedFromWindow();
     super.onDetachedFromWindow();
   }
 }
