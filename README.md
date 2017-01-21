@@ -34,17 +34,17 @@ compile 'com.bobomee.android:scrollloopviewpager:2.0'
       ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
       lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      final BannerController lBannerScroll = new BannerScroll(getActivity());//use default BannerConfig
-      lBannerScroll.viewPager(lViewPager);//attach viewpager
+      final BannerController lBannerController = new BannerScroll(getActivity());//use default BannerConfig
+      lBannerController.viewPager(lViewPager);//attach viewpager
 
       lViewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerScroll.dispatchTouchEvent(event); // dispatch touchevent
+          lBannerController.dispatchTouchEvent(event); // dispatch touchevent
           return false;
         }
       });
 
-      lBannerScroll.startAutoScroll();
+      lBannerController.startAutoScroll();
 ```
 
 
@@ -57,15 +57,15 @@ compile 'com.bobomee.android:scrollloopviewpager:2.0'
           .interval(800);// auto scroll interval
 ```
 
-- [BannerScroll](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerScroll.java)
+- [BannerController](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerController.java)
 
 ```java
-final BannerScroll lBannerScroll = new BannerScroll(lBannerConfig);//use custom config
-lBannerScroll.viewPager(lViewPager); // attach viewpager
+final BannerController lBannerController = new BannerScroll(lBannerConfig);//use custom config
+lBannerController.viewPager(lViewPager); // attach viewpager
 
       lViewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerScroll.dispatchTouchEvent(event);// dispatchTouchEvent,stop scroll when touch
+          lBannerController.dispatchTouchEvent(event);// dispatchTouchEvent,stop scroll when touch
           return false;
         }
       });
@@ -78,8 +78,8 @@ lBannerScroll.viewPager(lViewPager); // attach viewpager
 lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
-          if (lBannerScroll.isFirst() || lBannerScroll.isLast()) {
-            BannerConfig lBannerConfig = lBannerScroll.getConfing();
+          if (lBannerController.isFirst() || lBannerController.isLast()) {
+            BannerConfig lBannerConfig = lBannerController.getConfing();
             lBannerConfig.toggleDirection();//change scroll direction
           }
         }
