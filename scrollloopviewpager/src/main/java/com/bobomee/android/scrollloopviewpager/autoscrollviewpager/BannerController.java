@@ -226,10 +226,6 @@ public class BannerController {
     stopAutoScroll();
   }
 
-  public BannerConfig getmBannerConfig() {
-    return mBannerConfig;
-  }
-
   public boolean isLast() {
     if (mTotalCount == 0) return true;
     int lCurrentItem = mViewPager.getCurrentItem();
@@ -240,5 +236,14 @@ public class BannerController {
     if (mTotalCount == 0) return true;
     int lCurrentItem = mViewPager.getCurrentItem();
     return lCurrentItem == 0;
+  }
+
+  /**
+   * toggle the auto scroll mDirection
+   *
+   * @return this
+   */
+  public void toggleDirection() {
+   mBannerConfig.toggleDirection();
   }
 }

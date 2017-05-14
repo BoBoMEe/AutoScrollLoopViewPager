@@ -118,7 +118,7 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
           if (bannerController.isFirst() || bannerController.isLast()) {
-            bannerConfig.toggleDirection();
+            bannerController.toggleDirection();
           }
         }
       });
@@ -144,8 +144,7 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
           if (bannerController.isFirst() || bannerController.isLast()) {
-            BannerConfig bannerConfig = bannerController.getmBannerConfig();
-            bannerConfig.toggleDirection();
+            bannerController.toggleDirection();
           }
         }
       });

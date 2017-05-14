@@ -76,13 +76,12 @@ public class BannerConfig {
    *
    * @return this
    */
-  public BannerConfig toggleDirection() {
+  public void toggleDirection() {
     if (mDirection == LEFT) {
       direction(RIGHT);
     } else {
       direction(LEFT);
     }
-    return this;
   }
 
   /**

@@ -1,6 +1,6 @@
 # ScrollLoopViewPager
 
-Android auto scroll viewpager
+Android auto scroll loop viewpager
 
 
 ## ScreenShot
@@ -14,7 +14,7 @@ Android auto scroll viewpager
 <dependency>
   <groupId>com.bobomee.android</groupId>
   <artifactId>scrollloopviewpager</artifactId>
-  <version>2.0</version>
+  <version>2.1</version>
   <type>aar</type>
 </dependency>
 ```
@@ -22,7 +22,7 @@ Android auto scroll viewpager
 - `gradle`
 
 ```groovy
-compile 'com.bobomee.android:scrollloopviewpager:2.0'
+compile 'com.bobomee.android:scrollloopviewpager:2.1'
 ```
 
 ## Usage
@@ -31,37 +31,42 @@ compile 'com.bobomee.android:scrollloopviewpager:2.0'
 - Simple
 
 ```java
-      ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
-      lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+private void initViewPager(View view) {
+      ViewPager viewPager = ViewFindUtils.find(view, R.id.viewpager);
+      viewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      final BannerController lBannerController = new BannerScroll(getActivity());//use default BannerConfig
-      lBannerController.viewPager(lViewPager);//attach viewpager
+      final BannerController bannerController = new BannerController(getActivity());
+      bannerController.viewPager(viewPager);
 
-      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+      viewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerController.dispatchTouchEvent(event); // dispatch touchevent
+          bannerController.dispatchTouchEvent(event);
           return false;
         }
       });
 
-      lBannerController.startAutoScroll();
+      bannerController.startAutoScroll();
+}
 ```
 
 
 -  [BannerConfig](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerConfig.java)
 
 ```java
- final BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
-          .autoScrollFactor(0.8f)// scroll factor for auto scroll
-          .swipeScrollFactor(1.2f)// scroll factor for swipe scroll
-          .interval(800);// auto scroll interval
+  final BannerConfig bannerConfig = BannerConfig.sConfig(getContext())
+           .autoScrollFactor(0.8f)
+           .swipeScrollFactor(1.2f)
+           .interval(800);
+
+  final BannerController bannerController = new BannerController(bannerConfig);
+  bannerController.viewPager(viewPager);
 ```
 
 - [BannerController](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/scrollloopviewpager/src/main/java/com/bobomee/android/scrollloopviewpager/autoscrollviewpager/BannerController.java)
 
 ```java
-final BannerController lBannerController = new BannerScroll(lBannerConfig);//use custom config
-lBannerController.viewPager(lViewPager); // attach viewpager
+ final BannerController lBannerController = new BannerScroll(lBannerConfig);//use custom config
+ lBannerController.viewPager(lViewPager); // attach viewpager
 
       lViewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
@@ -74,13 +79,11 @@ lBannerController.viewPager(lViewPager); // attach viewpager
 - Advance
 
 ```java
-// pagechange
-lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+ viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
-          if (lBannerController.isFirst() || lBannerController.isLast()) {
-            BannerConfig lBannerConfig = lBannerController.getConfing();
-            lBannerConfig.toggleDirection();//change scroll direction
+          if (bannerController.isFirst() || bannerController.isLast()) {
+            bannerController.toggleDirection();
           }
         }
       });
@@ -127,6 +130,8 @@ public class InfiniteBanner extends LoopViewPager {
  FragmentStateAdapter fragmentStateAdapter = new FragmentStateAdapter(fragmentManager);
  viewPager.setAdapter(fragmentStateAdapter);
 ```
+
+- see more: [FiniteBanner](https://github.com/BoBoMEe/AutoScrollLoopViewPager/blob/master/app/src/main/java/com/bobomee/android/autoscrollloopviewpager/view/FiniteBanner.java)
 
 ## Config Setting
 
