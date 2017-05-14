@@ -35,37 +35,37 @@ import com.bobomee.android.drawableindicator.widget.BaseIndicator;
 
 public final class ViewParser {
 
-  private static ViewPager scrollVp(View _view, int scrollId) {
-    ViewPager viewPager = ViewFindUtils.find(_view, scrollId);
+  private static ViewPager scrollVp(View view, int scrollId) {
+    ViewPager viewPager = ViewFindUtils.find(view, scrollId);
     viewPager.setFocusable(true);
 
     return viewPager;
   }
 
-  private static BaseIndicator indicatorVp(View _view, int indicatorId, ViewPager viewPager) {
-    BaseIndicator pageIndex = ViewFindUtils.find(_view, indicatorId);
+  private static BaseIndicator indicatorVp(View view, int indicatorId, ViewPager viewPager) {
+    BaseIndicator pageIndex = ViewFindUtils.find(view, indicatorId);
     pageIndex.setViewPager(viewPager);
 
     return pageIndex;
   }
 
-  private static FragmentStateAdapter adapterVp(FragmentManager _fragmentManager,
-      ViewPager _viewPager) {
-    FragmentStateAdapter fragmentStateAdapter = new FragmentStateAdapter(_fragmentManager);
-    _viewPager.setAdapter(fragmentStateAdapter);
+  private static FragmentStateAdapter adapterVp(FragmentManager fragmentManager,
+      ViewPager viewPager) {
+    FragmentStateAdapter fragmentStateAdapter = new FragmentStateAdapter(fragmentManager);
+    viewPager.setAdapter(fragmentStateAdapter);
     return fragmentStateAdapter;
   }
 
-  public static void scrollRightVp(FragmentManager _fragmentManager, View view, int scrollId,
+  public static void scrollRightVp(FragmentManager fragmentManager, View view, int scrollId,
       int indicatorId) {
     ViewPager viewPager = scrollVp(view, scrollId);
-    FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
+    FragmentStateAdapter fragmentStateAdapter = adapterVp(fragmentManager, viewPager);
     BaseIndicator indicator = indicatorVp(view, indicatorId, viewPager);
   }
 
-  public static void scrollRightVp(FragmentManager _fragmentManager, View view, int scrollId) {
+  public static void scrollRightVp(FragmentManager fragmentManager, View view, int scrollId) {
     ViewPager viewPager = scrollVp(view, scrollId);
-    FragmentStateAdapter fragmentStateAdapter = adapterVp(_fragmentManager, viewPager);
+    FragmentStateAdapter fragmentStateAdapter = adapterVp(fragmentManager, viewPager);
   }
 
   public static void scroll3D(FragmentManager _fragmentManager, View view, int scrollId,

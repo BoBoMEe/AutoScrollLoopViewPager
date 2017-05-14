@@ -40,21 +40,21 @@ public class BannerController {
    * the message.what for scroll
    */
   private static final int SCROLL_WHAT = 0;
-  private BannerConfig confing;
+  private BannerConfig mBannerConfig;
   private ViewPager mViewPager;
   private Handler mHandler;
-  private boolean isAutoScroll = false;
-  private boolean isStopByTouch = false;
+  private boolean mIsAutoScroll = false;
+  private boolean mIsStopByTouch = false;
   private int mTotalCount = 0;
   private PageChangeListener mPageChangeListener;
 
   public BannerController(Context pContext) {
-    this.confing = BannerConfig.sConfig(pContext);
+    this.mBannerConfig = BannerConfig.sConfig(pContext);
     mHandler = new MyHandler(Looper.myLooper(), this);
   }
 
   public BannerController(BannerConfig pBannerConfig) {
-    this.confing = pBannerConfig;
+    this.mBannerConfig = pBannerConfig;
     mHandler = new MyHandler(Looper.myLooper(), this);
   }
 
@@ -100,7 +100,7 @@ public class BannerController {
       Field scrollerField = ViewPager.class.getDeclaredField("mScroller");
       scrollerField.setAccessible(true);
 
-      FixedSpeedScroller lScroller = confing.getScroller();
+      FixedSpeedScroller lScroller = mBannerConfig.getScroller();
       setAuto();
 
       scrollerField.set(mViewPager, lScroller);
@@ -113,24 +113,24 @@ public class BannerController {
    * change the speed when swipe
    */
   public void setSwipe() {
-    FixedSpeedScroller lFixedSpeedScroller = confing.getScroller();
-    lFixedSpeedScroller.setScrollDurationFactor(confing.getSwipeScrollFactor());
+    FixedSpeedScroller lFixedSpeedScroller = mBannerConfig.getScroller();
+    lFixedSpeedScroller.setScrollDurationFactor(mBannerConfig.getmSwipeScrollFactor());
   }
 
   /**
    * change the speed when auto scroll
    */
   public void setAuto() {
-    FixedSpeedScroller lFixedSpeedScroller = confing.getScroller();
-    lFixedSpeedScroller.setScrollDurationFactor(confing.getAutoScrollFactor());
+    FixedSpeedScroller lFixedSpeedScroller = mBannerConfig.getScroller();
+    lFixedSpeedScroller.setScrollDurationFactor(mBannerConfig.getmAutoScrollFactor());
   }
 
   /**
-   * start auto scroll, first scroll delay time is {@link BannerConfig#getInterval()}
+   * start auto scroll, first scroll delay time is {@link BannerConfig#getmInterval()}
    */
   public void startAutoScroll() {
-    isAutoScroll = true;
-    sendScrollMessage(confing.getInterval());
+    mIsAutoScroll = true;
+    sendScrollMessage(mBannerConfig.getmInterval());
   }
 
   /**
@@ -139,7 +139,7 @@ public class BannerController {
    * @param delayTimeInMills first scroll delay time
    */
   public void startAutoScroll(long delayTimeInMills) {
-    isAutoScroll = true;
+    mIsAutoScroll = true;
     sendScrollMessage(delayTimeInMills);
   }
 
@@ -147,7 +147,7 @@ public class BannerController {
    * stop auto scroll
    */
   private void stopAutoScroll() {
-    isAutoScroll = false;
+    mIsAutoScroll = false;
     mHandler.removeMessages(SCROLL_WHAT);
   }
 
@@ -164,9 +164,9 @@ public class BannerController {
     PagerAdapter adapter = mViewPager.getAdapter();
     if (adapter == null || (mTotalCount = adapter.getCount()) <= 1) return;
     int currentItem = mViewPager.getCurrentItem();
-    int nextItem = (confing.getDirection() == BannerConfig.LEFT) ? --currentItem : ++currentItem;
+    int nextItem = (mBannerConfig.getmDirection() == BannerConfig.LEFT) ? --currentItem : ++currentItem;
     mViewPager.setCurrentItem(nextItem, true);
-    sendScrollMessage(confing.getInterval());
+    sendScrollMessage(mBannerConfig.getmInterval());
   }
 
   private static class MyHandler extends Handler {
@@ -184,7 +184,7 @@ public class BannerController {
       switch (msg.what) {
         case SCROLL_WHAT:
           BannerController lBannerScroll = this.mBannerScrollWeakReference.get();
-          if (lBannerScroll != null && lBannerScroll.isAutoScroll) {
+          if (lBannerScroll != null && lBannerScroll.mIsAutoScroll) {
             lBannerScroll.scrollOnce();
           }
           break;
@@ -208,13 +208,13 @@ public class BannerController {
       int action = MotionEventCompat.getActionMasked(ev);
 
       if (action == MotionEvent.ACTION_DOWN) {
-        if (isAutoScroll && confing.isStopScrollWhenTouch()) {
-          isStopByTouch = true;
+        if (mIsAutoScroll && mBannerConfig.ismStopScrollWhenTouch()) {
+          mIsStopByTouch = true;
           setSwipe();
           stopAutoScroll();
         }
       } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-        if (isStopByTouch && confing.isStopScrollWhenTouch()) {
+        if (mIsStopByTouch && mBannerConfig.ismStopScrollWhenTouch()) {
           setAuto();
           startAutoScroll();
         }
@@ -226,8 +226,8 @@ public class BannerController {
     stopAutoScroll();
   }
 
-  public BannerConfig getConfing() {
-    return confing;
+  public BannerConfig getmBannerConfig() {
+    return mBannerConfig;
   }
 
   public boolean isLast() {

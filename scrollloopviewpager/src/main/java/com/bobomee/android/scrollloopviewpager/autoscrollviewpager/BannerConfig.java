@@ -37,16 +37,16 @@ public class BannerConfig {
   /**
    * auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL}
    */
-  private long interval = DEFAULT_INTERVAL;
+  private long mInterval = DEFAULT_INTERVAL;
 
   /**
    * set auto scroll time in milliseconds, default is {@link #DEFAULT_INTERVAL}
    *
-   * @param interval the interval to set
+   * @param interval the mInterval to set
    * @return this
    */
   public BannerConfig interval(int interval) {
-    this.interval = interval;
+    this.mInterval = interval;
     return this;
   }
 
@@ -56,28 +56,28 @@ public class BannerConfig {
   public static final int LEFT = 0;
   public static final int RIGHT = 1;
   /**
-   * auto scroll direction, default is {@link #RIGHT}
+   * auto scroll mDirection, default is {@link #RIGHT}
    */
-  private int direction = RIGHT;
+  private int mDirection = RIGHT;
 
   /**
-   * set auto scroll direction
+   * set auto scroll mDirection
    *
    * @param direction {@link #LEFT} or {@link #RIGHT}, default is {@link #RIGHT}
    * @return this
    */
   public BannerConfig direction(@Direction int direction) {
-    this.direction = direction;
+    this.mDirection = direction;
     return this;
   }
 
   /**
-   * toggle the auto scroll direction
+   * toggle the auto scroll mDirection
    *
    * @return this
    */
   public BannerConfig toggleDirection() {
-    if (direction == LEFT) {
+    if (mDirection == LEFT) {
       direction(RIGHT);
     } else {
       direction(LEFT);
@@ -88,7 +88,7 @@ public class BannerConfig {
   /**
    * whether stop auto scroll when touching, default is true
    */
-  private boolean stopScrollWhenTouch = true;
+  private boolean mStopScrollWhenTouch = true;
 
   /**
    * whether stop auto scroll when touching, default is true
@@ -97,33 +97,33 @@ public class BannerConfig {
    * @return this
    */
   public BannerConfig stopScrollWhenTouch(boolean stopScrollWhenTouch) {
-    this.stopScrollWhenTouch = stopScrollWhenTouch;
+    this.mStopScrollWhenTouch = stopScrollWhenTouch;
     return this;
   }
 
   /**
    * scroll factor for auto scroll animation, default is 1.0
    */
-  private float autoScrollFactor = 1.0f;
+  private float mAutoScrollFactor = 1.0f;
 
   /**
    * set the factor by which the duration of sliding animation will change while auto scrolling
    */
   public BannerConfig autoScrollFactor(float autoScrollFactor) {
-    this.autoScrollFactor = autoScrollFactor;
+    this.mAutoScrollFactor = autoScrollFactor;
     return this;
   }
 
   /**
    * scroll factor for swipe scroll animation, default is 1.0
    **/
-  private float swipeScrollFactor = 1.0f;
+  private float mSwipeScrollFactor = 1.0f;
 
   /**
    * set the factor by which the duration of sliding animation will change while swiping
    */
   public BannerConfig swipeScrollFactor(float swipeScrollFactor) {
-    this.swipeScrollFactor = swipeScrollFactor;
+    this.mSwipeScrollFactor = swipeScrollFactor;
     return this;
   }
 
@@ -141,27 +141,27 @@ public class BannerConfig {
     return new BannerConfig(pContext);
   }
 
-  public float getAutoScrollFactor() {
-    return autoScrollFactor;
+  public float getmAutoScrollFactor() {
+    return mAutoScrollFactor;
   }
 
-  public int getDirection() {
-    return direction;
+  public int getmDirection() {
+    return mDirection;
   }
 
-  public long getInterval() {
-    return interval;
+  public long getmInterval() {
+    return mInterval;
   }
 
   public FixedSpeedScroller getScroller() {
     return mScroller;
   }
 
-  public float getSwipeScrollFactor() {
-    return swipeScrollFactor;
+  public float getmSwipeScrollFactor() {
+    return mSwipeScrollFactor;
   }
 
-  public boolean isStopScrollWhenTouch() {
-    return stopScrollWhenTouch;
+  public boolean ismStopScrollWhenTouch() {
+    return mStopScrollWhenTouch;
   }
 }

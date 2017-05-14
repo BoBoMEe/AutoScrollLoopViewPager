@@ -95,62 +95,62 @@ public class TabViewPagerAdapter extends FragmentStatePagerAdapter {
       initViewPager1(view);
     }
 
-    private void initViewPager1(View pView) {
-      final ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager1);
-      lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+    private void initViewPager1(View view) {
+      final ViewPager viewPager = ViewFindUtils.find(view, R.id.viewpager1);
+      viewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      final BannerConfig lBannerConfig = BannerConfig.sConfig(getContext())
+      final BannerConfig bannerConfig = BannerConfig.sConfig(getContext())
           .autoScrollFactor(0.8f)
           .swipeScrollFactor(1.2f)
           .interval(800);
 
-      final BannerController lBannerController = new BannerController(lBannerConfig);
-      lBannerController.viewPager(lViewPager);
+      final BannerController bannerController = new BannerController(bannerConfig);
+      bannerController.viewPager(viewPager);
 
-      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+      viewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerController.dispatchTouchEvent(event);
+          bannerController.dispatchTouchEvent(event);
           return false;
         }
       });
 
-      lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+      viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
-          if (lBannerController.isFirst() || lBannerController.isLast()) {
-            lBannerConfig.toggleDirection();
+          if (bannerController.isFirst() || bannerController.isLast()) {
+            bannerConfig.toggleDirection();
           }
         }
       });
 
-      lBannerController.startAutoScroll();
+      bannerController.startAutoScroll();
     }
 
-    private void initViewPager(View pView) {
-      ViewPager lViewPager = ViewFindUtils.find(pView, R.id.viewpager);
-      lViewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
+    private void initViewPager(View view) {
+      ViewPager viewPager = ViewFindUtils.find(view, R.id.viewpager);
+      viewPager.setAdapter(new FragmentStateAdapter(getChildFragmentManager()));
 
-      final BannerController lBannerController = new BannerController(getActivity());
-      lBannerController.viewPager(lViewPager);
+      final BannerController bannerController = new BannerController(getActivity());
+      bannerController.viewPager(viewPager);
 
-      lViewPager.setOnTouchListener(new View.OnTouchListener() {
+      viewPager.setOnTouchListener(new View.OnTouchListener() {
         @Override public boolean onTouch(View v, MotionEvent event) {
-          lBannerController.dispatchTouchEvent(event);
+          bannerController.dispatchTouchEvent(event);
           return false;
         }
       });
 
-      lViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+      viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
         @Override public void onPageSelected(int position) {
           super.onPageSelected(position);
-          if (lBannerController.isFirst() || lBannerController.isLast()) {
-            BannerConfig lBannerConfig = lBannerController.getConfing();
-            lBannerConfig.toggleDirection();
+          if (bannerController.isFirst() || bannerController.isLast()) {
+            BannerConfig bannerConfig = bannerController.getmBannerConfig();
+            bannerConfig.toggleDirection();
           }
         }
       });
 
-      lBannerController.startAutoScroll();
+      bannerController.startAutoScroll();
     }
   }
 }

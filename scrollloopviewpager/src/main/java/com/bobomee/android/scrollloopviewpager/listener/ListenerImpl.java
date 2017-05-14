@@ -27,17 +27,14 @@ import java.util.List;
 
 public class ListenerImpl<ListenerType> implements IListener<ListenerType> {
 
-  private int listenerKey = Integer.MAX_VALUE;
-
   private List<ListenerType> mListenerTypes;
 
-  @Override public void addListener(ListenerType _listenerType) {
+  @Override public void addListener(ListenerType listenerType) {
 
     if (null == mListenerTypes ) {
       mListenerTypes = new ArrayList<>();
     }
-    if (!mListenerTypes.contains(_listenerType))
-    mListenerTypes.add(_listenerType);
+    mListenerTypes.add(listenerType);
   }
 
   @Override public void removeListener(ListenerType _listenerType) {

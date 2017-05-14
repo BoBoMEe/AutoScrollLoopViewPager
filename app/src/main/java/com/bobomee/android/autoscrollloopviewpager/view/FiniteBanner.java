@@ -51,7 +51,7 @@ public class FiniteBanner extends ViewPager {
     mBannerController.pageChangeListener(new SimpleOnPageChangeListener() {
       @Override public void onPageSelected(int position) {
         super.onPageSelected(position);
-        BannerConfig lConfing = mBannerController.getConfing();
+        BannerConfig lConfing = mBannerController.getmBannerConfig();
         if (mBannerController.isFirst() || mBannerController.isLast()) {
           lConfing.toggleDirection();
         }

@@ -39,11 +39,11 @@ public class PageChangeListener extends ListenerImpl<ViewPager.SimpleOnPageChang
   }
 
   private void notifyOnPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    List<ViewPager.SimpleOnPageChangeListener> lFrom = from();
-    if (null != lFrom && !lFrom.isEmpty()) {
-      for (ViewPager.SimpleOnPageChangeListener lSimpleOnPageChangeListener : lFrom) {
-        if (null != lSimpleOnPageChangeListener) {
-          lSimpleOnPageChangeListener.onPageScrolled(position, positionOffset,
+    List<ViewPager.SimpleOnPageChangeListener> simpleOnPageChangeListeners = from();
+    if (null != simpleOnPageChangeListeners && !simpleOnPageChangeListeners.isEmpty()) {
+      for (ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener : simpleOnPageChangeListeners) {
+        if (null != simpleOnPageChangeListener) {
+          simpleOnPageChangeListener.onPageScrolled(position, positionOffset,
               positionOffsetPixels);
         }
       }
@@ -51,22 +51,22 @@ public class PageChangeListener extends ListenerImpl<ViewPager.SimpleOnPageChang
   }
 
   private void notifyOnPageSelected(int position) {
-    List<ViewPager.SimpleOnPageChangeListener> lFrom = from();
-    if (null != lFrom && !lFrom.isEmpty()) {
-      for (ViewPager.SimpleOnPageChangeListener lSimpleOnPageChangeListener : lFrom) {
-        if (null != lSimpleOnPageChangeListener) {
-          lSimpleOnPageChangeListener.onPageSelected(position);
+    List<ViewPager.SimpleOnPageChangeListener> simpleOnPageChangeListeners = from();
+    if (null != simpleOnPageChangeListeners && !simpleOnPageChangeListeners.isEmpty()) {
+      for (ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener : simpleOnPageChangeListeners) {
+        if (null != simpleOnPageChangeListener) {
+          simpleOnPageChangeListener.onPageSelected(position);
         }
       }
     }
   }
 
   private void notifyOnPageScrollStateChanged(int state) {
-    List<ViewPager.SimpleOnPageChangeListener> lFrom = from();
-    if (null != lFrom && !lFrom.isEmpty()) {
-      for (ViewPager.SimpleOnPageChangeListener lSimpleOnPageChangeListener : lFrom) {
-        if (null != lSimpleOnPageChangeListener) {
-          lSimpleOnPageChangeListener.onPageScrollStateChanged(state);
+    List<ViewPager.SimpleOnPageChangeListener> simpleOnPageChangeListeners = from();
+    if (null != simpleOnPageChangeListeners && !simpleOnPageChangeListeners.isEmpty()) {
+      for (ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener : simpleOnPageChangeListeners) {
+        if (null != simpleOnPageChangeListener) {
+          simpleOnPageChangeListener.onPageScrollStateChanged(state);
         }
       }
     }
